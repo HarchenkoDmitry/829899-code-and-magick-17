@@ -27,9 +27,9 @@ window.renderStatistics = function (ctx, players, times) {
     }
   }
 
-  for (var i = 0; i < players.length; i++) {
+  for (var j = 0; j < players.length; i++) {
 
-    if (players[i] === 'Вы') {
+    if (players[j] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
       ctx.fillStyle = 'rgb(0, 0,' + Math.random() * 255 + ')';
