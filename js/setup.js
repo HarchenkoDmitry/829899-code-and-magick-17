@@ -10,7 +10,7 @@ var NAMES = [
   'Люпита',
   'Вашингтон'
 ];
-var SERNAMES = [
+var SURNAMES = [
   'да Марья',
   'Верон',
   'Мирабелла',
@@ -49,11 +49,21 @@ function getRandomArrayElement(array) {
 
 function generateCharacter() {
   wizard = {
-    name: getRandomArrayElement(NAMES) + ' ' + getRandomArrayElement(SERNAMES),
+    name: randomPositionFirstAndLastName(getRandomArrayElement(NAMES), getRandomArrayElement(SURNAMES)),
     coatColor: getRandomArrayElement(COAT_COLORS),
     eyesColor: getRandomArrayElement(EYES_COLORS)
   };
   return wizard;
+}
+
+function randomPositionFirstAndLastName(name, surname) {
+  var result;
+  if (Math.random() < 0.5) {
+    result = name + ' ' + surname;
+  } else {
+    result = surname + ' ' + name;
+  }
+  return result;
 }
 
 function createCharacter(character) {
