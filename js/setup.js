@@ -47,7 +47,7 @@ function getRandomArrayElement(array) {
   return array[Math.round(Math.random() * (array.length - 1))];
 }
 
-function generateCharacter() {
+function getWizardData() {
   return {
     name: getWizardName(getRandomArrayElement(NAMES), getRandomArrayElement(LAST_NAMES)),
     coatColor: getRandomArrayElement(COAT_COLORS),
@@ -55,8 +55,8 @@ function generateCharacter() {
   };
 }
 
-function getWizardName(name, surname) {
-  return (Math.random() < 0.5) ? name + ' ' + surname : surname + ' ' + name;
+function getWizardName(name, lastName) {
+  return (Math.random() < 0.5) ? name + ' ' + lastName : lastName + ' ' + name;
 }
 
 function renderCharacters(wizards) {
@@ -64,14 +64,14 @@ function renderCharacters(wizards) {
   var containerForRender = document.querySelector('.setup-similar-list');
 
   for (var i = 0; i < wizards.length; i++) {
-    var character = createCharacter(wizards[i]);
+    var character = renderCharacter(wizards[i]);
     fragment.appendChild(character);
   }
 
   containerForRender.appendChild(fragment);
 }
 
-function createCharacter(wizard) {
+function renderCharacter(wizard) {
   var cloneContainer = containerForCharacter.cloneNode(true);
   var name = cloneContainer.querySelector('.setup-similar-label');
   var coatColor = cloneContainer.querySelector('.wizard-coat');
@@ -87,7 +87,7 @@ function createCharacter(wizard) {
 function getWizardsData() {
   var wizards = [];
   for (var i = 0; i < WIZARDS_AMOUNT; i++) {
-    wizards[i] = generateCharacter();
+    wizards[i] = getWizardData();
   }
   return wizards;
 }
