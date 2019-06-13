@@ -59,41 +59,41 @@ function getWizardName(name, surname) {
   return (Math.random() < 0.5) ? name + ' ' + surname : surname + ' ' + name;
 }
 
-function renderCharacter(array) {
+function renderCharacters(wizards) {
   var fragment = document.createDocumentFragment();
   var containerForRender = document.querySelector('.setup-similar-list');
 
-  for (var i = 0; i < array.length; i++) {
-    var character = createCharacter(array[i]);
+  for (var i = 0; i < wizards.length; i++) {
+    var character = createCharacter(wizards[i]);
     fragment.appendChild(character);
   }
 
   containerForRender.appendChild(fragment);
 }
 
-function createCharacter(character) {
+function createCharacter(wizard) {
   var cloneContainer = containerForCharacter.cloneNode(true);
   var name = cloneContainer.querySelector('.setup-similar-label');
   var coatColor = cloneContainer.querySelector('.wizard-coat');
   var eyesColor = cloneContainer.querySelector('.wizard-eyes');
 
-  name.textContent = character.name;
-  coatColor.style.fill = character.coatColor;
-  eyesColor.style.fill = character.eyesColor;
+  name.textContent = wizard.name;
+  coatColor.style.fill = wizard.coatColor;
+  eyesColor.style.fill = wizard.eyesColor;
 
   return cloneContainer;
 }
 
-function createArrayOfCharacters() {
-  var array = [];
+function getWizardsData() {
+  var wizards = [];
   for (var i = 0; i < WIZARDS_AMOUNT; i++) {
-    array[i] = generateCharacter();
+    wizards[i] = generateCharacter();
   }
-  return array;
+  return wizards;
 }
 
 window.onload = function () {
   showBlock('.setup');
   showBlock('.setup-similar');
-  renderCharacter(createArrayOfCharacters());
+  renderCharacters(getWizardsData());
 };
