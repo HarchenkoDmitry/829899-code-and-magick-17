@@ -35,12 +35,41 @@ var EYES_COLORS = [
   'yellow',
   'green'
 ];
+var FIREBALL_COLORS = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
 var WIZARDS_AMOUNT = 4;
 var containerForCharacter = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+var setupOpen = document.querySelector('.setup-open');
+var setupPopup = document.querySelector('.setup');
+var setupClose = setupPopup.querySelector('.setup-close');
+var coat = document.querySelector('.setup-wizard .wizard-coat');
+var eyes = document.querySelector('.setup-wizard .wizard-eyes');
+var fireball = document.querySelector('.setup-fireball-wrap');
 
 function showBlock(selector) {
   var blockSetup = document.querySelector(selector);
   blockSetup.classList.remove('hidden');
+}
+
+function openPopup() {
+  setupPopup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+}
+
+function closePopup() {
+  setupPopup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+}
+
+function onPopupEscPress(evt) {
+  if (evt.keyCode === 27 && !document.activeElement.classList.contains('setup-user-name')) {
+    closePopup();
+  }
 }
 
 function getRandomArrayElement(array) {
@@ -92,8 +121,43 @@ function getWizardsData() {
   return wizards;
 }
 
+function changeColorByClick() {
+  coat.addEventListener('click', function () {
+    coat.style.fill = getRandomArrayElement(COAT_COLORS);
+  });
+
+  eyes.addEventListener('click', function () {
+    eyes.style.fill = getRandomArrayElement(EYES_COLORS);
+  });
+
+  fireball.addEventListener('click', function () {
+    fireball.style.backgroundColor = getRandomArrayElement(FIREBALL_COLORS);
+  });
+}
+
+
 window.onload = function () {
-  showBlock('.setup');
   showBlock('.setup-similar');
   renderCharacters(getWizardsData());
+  changeColorByClick();
+
+  setupOpen.addEventListener('click', function () {
+    openPopup();
+  });
+
+  setupOpen.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 13) {
+      openPopup();
+    }
+  });
+
+  setupClose.addEventListener('click', function () {
+    closePopup();
+  });
+
+  setupClose.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 13) {
+      closePopup();
+    }
+  });
 };
