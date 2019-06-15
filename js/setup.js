@@ -51,6 +51,11 @@ var coat = document.querySelector('.setup-wizard .wizard-coat');
 var eyes = document.querySelector('.setup-wizard .wizard-eyes');
 var fireball = document.querySelector('.setup-fireball-wrap');
 
+function showBlock(selector) {
+  var blockSetup = document.querySelector(selector);
+  blockSetup.classList.remove('hidden');
+}
+
 function openPopup() {
   setupPopup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
@@ -132,6 +137,7 @@ function changeColorByClick() {
 
 
 window.onload = function () {
+  showBlock('.setup-similar');
   renderCharacters(getWizardsData());
   changeColorByClick();
 
