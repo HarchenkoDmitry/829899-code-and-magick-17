@@ -20,7 +20,6 @@ dropContainer.forEach(function (containerItem) {
   containerItem.addEventListener('drop', function (evt) {
     evt.preventDefault();
     var data = evt.dataTransfer.getData('image/png');
-    console.log(data);
     evt.target.appendChild(document.getElementById(data));
   });
 });
