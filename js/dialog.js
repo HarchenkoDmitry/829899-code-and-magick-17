@@ -15,8 +15,10 @@ function closePopup() {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
 
-  setup.style.top = initialCoordsDialog.y + 'px';
-  setup.style.left = initialCoordsDialog.x + 'px';
+  if (initialCoordsDialog) {
+    setup.style.top = initialCoordsDialog.y + 'px';
+    setup.style.left = initialCoordsDialog.x + 'px';
+  }
 }
 
 function onPopupEscPress(evt) {
