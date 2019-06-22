@@ -1,25 +1,43 @@
 'use strict';
 
-var items = document.querySelectorAll('.setup-artifacts-shop .setup-artifacts-cell img');
-var dropContainer = document.querySelectorAll('.setup-artifacts .setup-artifacts-cell');
+(function () {
+  var shopElement = document.querySelector('.setup-artifacts-shop');
+  var dropContainer = document.querySelector('.setup-artifacts');
+  var draggedItem = null;
 
+  function addHighlight(evt) {
+    if (evt.target.classList.contains('setup-artifacts-cell')) {
+      evt.preventDefault();
+      evt.target.style.backgroundColor = 'yellow';
+    }
+  }
 
-items.forEach(function (item) {
-  item.addEventListener('dragstart', function (evt) {
-    evt.dataTransfer.setData('image/png', evt.target.id);
-    evt.dataTransfer.dropEffect = 'move';
-  });
-});
-
-dropContainer.forEach(function (containerItem) {
-  containerItem.addEventListener('dragover', function (evt) {
+  function removeHighlight(evt) {
     evt.preventDefault();
-    evt.dataTransfer.dropEffect = 'move';
+    evt.target.style.backgroundColor = '';
+  }
+
+  shopElement.addEventListener('dragstart', function (evt) {
+    if (evt.target.tagName.toLowerCase() === 'img') {
+      draggedItem = evt.target;
+      evt.dataTransfer.setData('text/plain', evt.target.alt);
+    }
   });
 
-  containerItem.addEventListener('drop', function (evt) {
-    evt.preventDefault();
-    var data = evt.dataTransfer.getData('image/png');
-    evt.target.appendChild(document.getElementById(data));
+  dropContainer.addEventListener('dragenter', addHighlight);
+
+  dropContainer.addEventListener('dragover', addHighlight);
+
+  dropContainer.addEventListener('dragleave', function (evt) {
+    if (evt.target.classList.contains('setup-artifacts-cell')) {
+      removeHighlight(evt);
+    }
   });
-});
+
+  dropContainer.addEventListener('drop', function (evt) {
+    if (evt.target.classList.contains('setup-artifacts-cell')) {
+      removeHighlight(evt);
+      evt.target.appendChild(draggedItem);
+    }
+  });
+})();
