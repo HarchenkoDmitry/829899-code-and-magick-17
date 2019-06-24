@@ -28,9 +28,9 @@
   var coat = document.querySelector('.setup-wizard .wizard-coat');
   var eyes = document.querySelector('.setup-wizard .wizard-eyes');
   var fireball = document.querySelector('.setup-fireball-wrap');
-  var coatInput = document.querySelector('input[name=\'coat-color\']');
-  var eyesInput = document.querySelector('input[name=\'eyes-color\']');
-  var fireballInput = document.querySelector('input[name=\'fireball-color\']');
+  var coatInput = document.querySelector('input[name="coat-color"]');
+  var eyesInput = document.querySelector('input[name="eyes-color"]');
+  var fireballInput = document.querySelector('input[name="fireball-color"]');
 
   function showBlock(selector) {
     var blockSetup = document.querySelector(selector);
