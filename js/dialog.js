@@ -105,6 +105,7 @@
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), closePopup, window.util.errorHandler);
+    var data = new FormData(form);
+    window.backend.save(data, closePopup, window.utils.errorHandler);
   });
 })();

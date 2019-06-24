@@ -37,7 +37,7 @@
     xhr.open(method, url);
     xhr.send(data);
 
-    return xhr;
+
   }
 
   window.backend = backend;
