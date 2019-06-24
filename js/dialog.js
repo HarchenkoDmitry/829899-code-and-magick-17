@@ -6,6 +6,7 @@
   var setup = document.querySelector('.setup');
   var setupClose = setup.querySelector('.setup-close');
   var dialogHandler = setup.querySelector('.upload');
+  var form = document.querySelector('.setup-wizard-form');
   var initialCoordsDialog;
 
   function openPopup() {
@@ -100,5 +101,10 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+  });
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), closePopup, window.util.errorHandler);
   });
 })();

@@ -1,26 +1,6 @@
 'use strict';
 
 (function () {
-  var NAMES = [
-    'Иван',
-    'Хуан Себастьян',
-    'Мария',
-    'Кристоф',
-    'Виктор',
-    'Юлия',
-    'Люпита',
-    'Вашингтон'
-  ];
-  var LAST_NAMES = [
-    'да Марья',
-    'Верон',
-    'Мирабелла',
-    'Вальц',
-    'Онопко',
-    'Топольницкая',
-    'Нионго',
-    'Ирвинг'
-  ];
   var COAT_COLORS = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -58,23 +38,11 @@
     return array[Math.round(Math.random() * (array.length - 1))];
   }
 
-  function getWizardData() {
-    return {
-      name: getWizardName(getRandomArrayElement(NAMES), getRandomArrayElement(LAST_NAMES)),
-      coatColor: getRandomArrayElement(COAT_COLORS),
-      eyesColor: getRandomArrayElement(EYES_COLORS)
-    };
-  }
-
-  function getWizardName(name, lastName) {
-    return (Math.random() < 0.5) ? name + ' ' + lastName : lastName + ' ' + name;
-  }
-
-  function renderCharacters(wizards) {
+  function successHandler(wizards) {
     var fragment = document.createDocumentFragment();
     var containerForRender = document.querySelector('.setup-similar-list');
 
-    for (var i = 0; i < wizards.length; i++) {
+    for (var i = 0; i < WIZARDS_AMOUNT; i++) {
       var character = renderCharacter(wizards[i]);
       fragment.appendChild(character);
     }
@@ -89,18 +57,10 @@
     var eyesColor = cloneContainer.querySelector('.wizard-eyes');
 
     name.textContent = wizard.name;
-    coatColor.style.fill = wizard.coatColor;
+    coatColor.style.fill = wizard.colorCoat;
     eyesColor.style.fill = wizard.eyesColor;
 
     return cloneContainer;
-  }
-
-  function getWizardsData() {
-    var wizards = [];
-    for (var i = 0; i < WIZARDS_AMOUNT; i++) {
-      wizards[i] = getWizardData();
-    }
-    return wizards;
   }
 
   function changeColorByClick() {
@@ -117,11 +77,11 @@
     });
   }
 
-  window.onload = function () {
-    showBlock('.setup-similar');
-    renderCharacters(getWizardsData());
-    changeColorByClick();
-  };
+  showBlock('.setup-similar');
+  changeColorByClick();
+
+  window.backend.load(successHandler, window.util.errorHandler);
+
 })();
 
 
