@@ -1019,3 +1019,17 @@ input[type=radio]:checked + .review-mark-label
 
     opacity: 0;
 }
+
+.error-massage {
+    background-color: red;
+    color: white;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    font-family: monospace;
+    font-size: 20px;
+    text-align: center;
+}

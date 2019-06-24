@@ -1,26 +1,6 @@
 'use strict';
 
 (function () {
-  var NAMES = [
-    'Иван',
-    'Хуан Себастьян',
-    'Мария',
-    'Кристоф',
-    'Виктор',
-    'Юлия',
-    'Люпита',
-    'Вашингтон'
-  ];
-  var LAST_NAMES = [
-    'да Марья',
-    'Верон',
-    'Мирабелла',
-    'Вальц',
-    'Онопко',
-    'Топольницкая',
-    'Нионго',
-    'Ирвинг'
-  ];
   var COAT_COLORS = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -48,6 +28,9 @@
   var coat = document.querySelector('.setup-wizard .wizard-coat');
   var eyes = document.querySelector('.setup-wizard .wizard-eyes');
   var fireball = document.querySelector('.setup-fireball-wrap');
+  var coatInput = document.querySelector('input[name="coat-color"]');
+  var eyesInput = document.querySelector('input[name="eyes-color"]');
+  var fireballInput = document.querySelector('input[name="fireball-color"]');
 
   function showBlock(selector) {
     var blockSetup = document.querySelector(selector);
@@ -58,23 +41,11 @@
     return array[Math.round(Math.random() * (array.length - 1))];
   }
 
-  function getWizardData() {
-    return {
-      name: getWizardName(getRandomArrayElement(NAMES), getRandomArrayElement(LAST_NAMES)),
-      coatColor: getRandomArrayElement(COAT_COLORS),
-      eyesColor: getRandomArrayElement(EYES_COLORS)
-    };
-  }
-
-  function getWizardName(name, lastName) {
-    return (Math.random() < 0.5) ? name + ' ' + lastName : lastName + ' ' + name;
-  }
-
-  function renderCharacters(wizards) {
+  function successHandler(wizards) {
     var fragment = document.createDocumentFragment();
     var containerForRender = document.querySelector('.setup-similar-list');
 
-    for (var i = 0; i < wizards.length; i++) {
+    for (var i = 0; i < WIZARDS_AMOUNT; i++) {
       var character = renderCharacter(wizards[i]);
       fragment.appendChild(character);
     }
@@ -89,39 +60,37 @@
     var eyesColor = cloneContainer.querySelector('.wizard-eyes');
 
     name.textContent = wizard.name;
-    coatColor.style.fill = wizard.coatColor;
+    coatColor.style.fill = wizard.colorCoat;
     eyesColor.style.fill = wizard.eyesColor;
 
     return cloneContainer;
   }
 
-  function getWizardsData() {
-    var wizards = [];
-    for (var i = 0; i < WIZARDS_AMOUNT; i++) {
-      wizards[i] = getWizardData();
-    }
-    return wizards;
-  }
-
   function changeColorByClick() {
     coat.addEventListener('click', function () {
-      coat.style.fill = getRandomArrayElement(COAT_COLORS);
+      var color = getRandomArrayElement(COAT_COLORS);
+      coat.style.fill = color;
+      coatInput.value = color;
     });
 
     eyes.addEventListener('click', function () {
-      eyes.style.fill = getRandomArrayElement(EYES_COLORS);
+      var color = getRandomArrayElement(EYES_COLORS);
+      eyes.style.fill = color;
+      eyesInput.value = color;
     });
 
     fireball.addEventListener('click', function () {
-      fireball.style.backgroundColor = getRandomArrayElement(FIREBALL_COLORS);
+      var color = getRandomArrayElement(FIREBALL_COLORS);
+      fireball.style.backgroundColor = color;
+      fireballInput.value = color;
     });
   }
 
-  window.onload = function () {
-    showBlock('.setup-similar');
-    renderCharacters(getWizardsData());
-    changeColorByClick();
-  };
+  showBlock('.setup-similar');
+  changeColorByClick();
+
+  window.backend.load(successHandler, window.utils.errorHandler);
+
 })();
 
 
