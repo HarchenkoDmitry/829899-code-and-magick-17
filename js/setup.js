@@ -34,7 +34,7 @@
   var currentColorEyes = EYES_COLORS[0];
   var currentColorFireball = FIREBALL_COLORS[0];
   var wizardsData = [];
-  var debounceCounter = window.utils.debounce(sortWizards);
+  var debounceDrawing = window.utils.debounce(sortWizards, DELAY_TIME);
 
   function showBlock(selector) {
     var blockSetup = document.querySelector(selector);
@@ -45,7 +45,7 @@
     return array[Math.round(Math.random() * (array.length - 1))];
   }
 
-  function successHandler(wizards) {
+  function renderWizards(wizards) {
     wizardsData = wizards;
     sortWizards();
   }
@@ -55,14 +55,14 @@
       currentColorCoat = getRandomArrayElement(COAT_COLORS);
       coat.style.fill = currentColorCoat;
       coatInput.value = currentColorCoat;
-      debounceCounter(DELAY_TIME);
+      debounceDrawing();
     });
 
     eyes.addEventListener('click', function () {
       currentColorEyes = getRandomArrayElement(EYES_COLORS);
       eyes.style.fill = currentColorEyes;
       eyesInput.value = currentColorEyes;
-      debounceCounter(DELAY_TIME);
+      debounceDrawing();
     });
 
     fireball.addEventListener('click', function () {
@@ -73,7 +73,7 @@
   }
 
   function sortWizards() {
-    window.render(wizardsData.sort(function (first, second) {
+    window.wizards(wizardsData.sort(function (first, second) {
       var rankDiff = getRank(second) - getRank(first);
 
       if (rankDiff === 0) {
@@ -97,7 +97,7 @@
   showBlock('.setup-similar');
   changeColorByClick();
 
-  window.backend.load(successHandler, window.utils.errorHandler);
+  window.backend.load(renderWizards, window.utils.errorHandler);
 
 })();
 

@@ -10,9 +10,9 @@
       document.body.appendChild(massage);
     },
 
-    debounce: function debounce(functionName) {
+    debounce: function debounce(functionName , delayTime) {
       var timerId;
-      return function (delayTime) {
+      return function () {
         if (timerId) {
           clearTimeout(timerId);
         }
