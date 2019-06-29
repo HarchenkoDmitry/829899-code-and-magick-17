@@ -10,7 +10,7 @@
       document.body.appendChild(massage);
     },
 
-    debounce: function debounce(functionName , delayTime) {
+    debounce: function debounce(functionName, delayTime) {
       var timerId;
       return function () {
         if (timerId) {
